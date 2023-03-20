@@ -3,7 +3,10 @@ package com.team4.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
@@ -19,13 +22,17 @@ public abstract class Piece {
 	@GeneratedValue
 	protected Long pieceID;
 	
+	@Enumerated(EnumType.STRING)
 	private Color color;
+	
+	
+	@Enumerated(EnumType.STRING)
 	private Type type;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Space currentSpace;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Board board;
 
 	public Piece() {
@@ -45,10 +52,14 @@ public abstract class Piece {
 		this.pieceID = pieceID;
 	}
 	
-	public abstract List<Space> getPossibleMoves();
+	public abstract List<Space> findPossibleMoves();
 
 	public Color getColor() {
 		return color;
+	}
+	
+	public void setColor(Color color) {
+		this.color = color;
 	}
 	
 	public Type getType() {
@@ -75,11 +86,12 @@ public abstract class Piece {
 		this.board = board;
 	}
 
-	public enum Color {
+	
+	public static enum Color {
 		WHITE, BLACK
 	}
 	
-	public enum Type {
+	public static enum Type {
 		PAWN, ROOK, KNIGHT, BISHOP, KING, QUEEN
 	}
 	

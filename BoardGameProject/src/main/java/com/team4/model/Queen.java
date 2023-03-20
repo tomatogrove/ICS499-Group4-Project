@@ -17,7 +17,7 @@ public class Queen extends Piece {
     }
 
     @Override
-    public List<Space> getPossibleMoves() {
+    public List<Space> findPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
 		possibleMoves.addAll(getPossibleDiagonalMoves());
 		possibleMoves.addAll(getPossibleLinearMoves());
