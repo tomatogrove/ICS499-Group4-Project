@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Queen;
-import com.team4.repositories.QueenRepository;
+import com.team4.model.Skip;
+import com.team4.repositories.SkipRepository;
 
 @RestController
-@RequestMapping("/queen")
-public class QueenController {
+@RequestMapping("/skip")
+public class SkipController {
 	
 	@Autowired 
-	private QueenRepository queenRepo;
+	private SkipRepository skipRepo;
 	
 	@GetMapping("/all")
-	public List<Queen> list() {
-		return queenRepo.findAll();
+	public List<Skip> list() {
+		return skipRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Queen get(@PathVariable Long id) {
-		return queenRepo.getReferenceById(id);
+	public Skip get(@PathVariable Long id) {
+		return skipRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Queen create(@RequestBody final Queen queen) {
-		return queenRepo.saveAndFlush(queen);
+	public Skip create(@RequestBody final Skip skip) {
+		return skipRepo.saveAndFlush(skip);
 	}
 	
 	@PutMapping("/update")
-	public Queen update(@RequestBody final Queen queen) {
-		return queenRepo.saveAndFlush(queen);
+	public Skip update(@RequestBody final Skip skip) {
+		return skipRepo.saveAndFlush(skip);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		queenRepo.deleteById(id);
+		skipRepo.deleteById(id);
 	}
 
 }

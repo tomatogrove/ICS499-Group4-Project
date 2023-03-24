@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Space;
-import com.team4.repositories.SpaceRepository;
+import com.team4.model.PlayerList;
+import com.team4.repositories.PlayerListRepository;
 
 @RestController
-@RequestMapping("/space")
-public class SpaceController {
-
+@RequestMapping("/playerList")
+public class PlayerListController {
+	
 	@Autowired 
-	private SpaceRepository SpaceRepo;
+	private PlayerListRepository playerListRepo;
 	
 	@GetMapping("/all")
-	public List<Space> list() {
-		return SpaceRepo.findAll();
+	public List<PlayerList> list() {
+		return playerListRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Space get(@PathVariable Long id) {
-		return SpaceRepo.getReferenceById(id);
+	public PlayerList get(@PathVariable Long id) {
+		return playerListRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Space create(@RequestBody final Space space) {
-		return SpaceRepo.saveAndFlush(space);
+	public PlayerList create(@RequestBody final PlayerList playerList) {
+		return playerListRepo.saveAndFlush(playerList);
 	}
 	
 	@PutMapping("/update")
-	public Space update(@RequestBody final Space space) {
-		return SpaceRepo.saveAndFlush(space);
+	public PlayerList update(@RequestBody final PlayerList playerList) {
+		return playerListRepo.saveAndFlush(playerList);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		SpaceRepo.deleteById(id);
+		playerListRepo.deleteById(id);
 	}
-	
+
 }

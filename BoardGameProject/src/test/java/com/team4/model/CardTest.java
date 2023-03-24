@@ -21,7 +21,7 @@ public class CardTest {
     public void setUp() {
 		card = new Card();
 		card.setColor("Red");
-        card.setType(8);
+        card.setType(3);
     }
 	
 	@Test
@@ -49,7 +49,7 @@ public class CardTest {
 	
 	@Test
 	public void testGetType() {
-		assertEquals(3, card.getColor());
+		assertEquals(3, card.getType());
 	}
 	
 	@Test

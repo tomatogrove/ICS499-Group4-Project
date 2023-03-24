@@ -12,38 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Rule;
-import com.team4.repositories.RuleRepository;
+import com.team4.model.UserInterface;
+import com.team4.repositories.UserInterfaceRepository;
 
 @RestController
-@RequestMapping("/rule")
-public class RuleController {
+@RequestMapping("/users")
+public class UserInterfaceController {
 
-	@Autowired 
-	private RuleRepository ruleRepo;
+	@Autowired
+	private UserInterfaceRepository userInterfaceRepo;
+	
 	
 	@GetMapping("/all")
-	public List<Rule> list() {
-		return ruleRepo.findAll();
+	public List<UserInterface> list() {
+		return userInterfaceRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Rule get(@PathVariable Long id) {
-		return ruleRepo.getReferenceById(id);
+	public UserInterface get(@PathVariable Long id) {
+		return userInterfaceRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Rule create(@RequestBody final Rule rule) {
-		return ruleRepo.saveAndFlush(rule);
+	public UserInterface create(@RequestBody final UserInterface user) {
+		return userInterfaceRepo.saveAndFlush(user);
 	}
 	
 	@PutMapping("/update")
-	public Rule update(@RequestBody final Rule rule) {
-		return ruleRepo.saveAndFlush(rule);
+	public UserInterface update(@RequestBody final UserInterface user) {
+		return userInterfaceRepo.saveAndFlush(user);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		ruleRepo.deleteById(id);
+		userInterfaceRepo.deleteById(id);
 	}
 }

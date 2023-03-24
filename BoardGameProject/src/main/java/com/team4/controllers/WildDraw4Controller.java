@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Knight;
-import com.team4.repositories.KnightRepository;
+import com.team4.model.WildDraw4;
+import com.team4.repositories.WildDraw4Repository;
 
 @RestController
-@RequestMapping("/knight")
-public class KnightController {
+@RequestMapping("/wildDraw4")
+public class WildDraw4Controller {
 	
 	@Autowired 
-	private KnightRepository knightRepo;
+	private WildDraw4Repository wildDraw4Repo;
 	
 	@GetMapping("/all")
-	public List<Knight> list() {
-		return knightRepo.findAll();
+	public List<WildDraw4> list() {
+		return wildDraw4Repo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Knight get(@PathVariable Long id) {
-		return knightRepo.getReferenceById(id);
+	public WildDraw4 get(@PathVariable Long id) {
+		return wildDraw4Repo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Knight create(@RequestBody final Knight knight) {
-		return knightRepo.saveAndFlush(knight);
+	public WildDraw4 create(@RequestBody final WildDraw4 wildDraw4) {
+		return wildDraw4Repo.saveAndFlush(wildDraw4);
 	}
 	
 	@PutMapping("/update")
-	public Knight update(@RequestBody final Knight knight) {
-		return knightRepo.saveAndFlush(knight);
+	public WildDraw4 update(@RequestBody final WildDraw4 wildDraw4) {
+		return wildDraw4Repo.saveAndFlush(wildDraw4);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		knightRepo.deleteById(id);
+		wildDraw4Repo.deleteById(id);
 	}
 
 }

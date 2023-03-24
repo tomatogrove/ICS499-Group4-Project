@@ -17,7 +17,7 @@ public class KingTest {
 	@BeforeEach
 	public void setup() {
 		board = new Board();
-		king = board.getSpace(1, 1).getPiece();
+		king = board.getSpace(5, 1).getPiece();
 		
 	}
 	

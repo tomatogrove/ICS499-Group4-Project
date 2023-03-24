@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Game;
-import com.team4.repositories.GameRepository;
+import com.team4.model.Numbered;
+import com.team4.repositories.NumberedRepository;
 
 @RestController
-@RequestMapping("/games")
-public class GameController {
-
-	@Autowired
-	private GameRepository gameRepo;
+@RequestMapping("/numbered")
+public class NumberedController {
 	
+	@Autowired 
+	private NumberedRepository numberedRepo;
 	
 	@GetMapping("/all")
-	public List<Game> list() {
-		return gameRepo.findAll();
+	public List<Numbered> list() {
+		return numberedRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Game get(@PathVariable Long id) {
-		return gameRepo.getReferenceById(id);
+	public Numbered get(@PathVariable Long id) {
+		return numberedRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Game create(@RequestBody final Game game) {
-		return gameRepo.saveAndFlush(game);
+	public Numbered create(@RequestBody final Numbered numbered) {
+		return numberedRepo.saveAndFlush(numbered);
 	}
 	
 	@PutMapping("/update")
-	public Game update(@RequestBody final Game game) {
-		return gameRepo.saveAndFlush(game);
+	public Numbered update(@RequestBody final Numbered numbered) {
+		return numberedRepo.saveAndFlush(numbered);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		gameRepo.deleteById(id);
+		numberedRepo.deleteById(id);
 	}
+
 }

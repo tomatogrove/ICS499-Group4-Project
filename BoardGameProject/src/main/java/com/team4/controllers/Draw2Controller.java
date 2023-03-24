@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Bishop;
-import com.team4.repositories.BishopRepository;
+import com.team4.model.Draw2;
+import com.team4.repositories.Draw2Repository;
 
 @RestController
-@RequestMapping("/bishop")
-public class BishopController {
+@RequestMapping("/draw2")
+public class Draw2Controller {
 	
 	@Autowired 
-	private BishopRepository bishopRepo;
+	private Draw2Repository draw2Repo;
 	
 	@GetMapping("/all")
-	public List<Bishop> list() {
-		return bishopRepo.findAll();
+	public List<Draw2> list() {
+		return draw2Repo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Bishop get(@PathVariable Long id) {
-		return bishopRepo.getReferenceById(id);
+	public Draw2 get(@PathVariable Long id) {
+		return draw2Repo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Bishop create(@RequestBody final Bishop bishop) {
-		return bishopRepo.saveAndFlush(bishop);
+	public Draw2 create(@RequestBody final Draw2 draw2) {
+		return draw2Repo.saveAndFlush(draw2);
 	}
 	
 	@PutMapping("/update")
-	public Bishop update(@RequestBody final Bishop bishop) {
-		return bishopRepo.saveAndFlush(bishop);
+	public Draw2 update(@RequestBody final Draw2 draw2) {
+		return draw2Repo.saveAndFlush(draw2);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		bishopRepo.deleteById(id);
+		draw2Repo.deleteById(id);
 	}
 
 }

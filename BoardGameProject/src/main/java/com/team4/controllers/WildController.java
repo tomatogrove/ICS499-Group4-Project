@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Rook;
-import com.team4.repositories.RookRepository;
+import com.team4.model.Wild;
+import com.team4.repositories.WildRepository;
 
 @RestController
-@RequestMapping("/rook")
-public class RookController {
+@RequestMapping("/wild")
+public class WildController {
 	
 	@Autowired 
-	private RookRepository RookRepo;
+	private WildRepository wildRepo;
 	
 	@GetMapping("/all")
-	public List<Rook> list() {
-		return RookRepo.findAll();
+	public List<Wild> list() {
+		return wildRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Rook get(@PathVariable Long id) {
-		return RookRepo.getReferenceById(id);
+	public Wild get(@PathVariable Long id) {
+		return wildRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Rook create(@RequestBody final Rook rook) {
-		return RookRepo.saveAndFlush(rook);
+	public Wild create(@RequestBody final Wild wild) {
+		return wildRepo.saveAndFlush(wild);
 	}
 	
 	@PutMapping("/update")
-	public Rook update(@RequestBody final Rook rook) {
-		return RookRepo.saveAndFlush(rook);
+	public Wild update(@RequestBody final Wild wild) {
+		return wildRepo.saveAndFlush(wild);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		RookRepo.deleteById(id);
+		wildRepo.deleteById(id);
 	}
 
 }
