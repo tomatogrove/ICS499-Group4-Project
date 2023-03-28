@@ -1,6 +1,7 @@
 package com.team4.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PlayerList {
@@ -34,18 +35,41 @@ public class PlayerList {
 		}
 		return true;
 	}
-
-	public List<Player> getPlayers() {
-		return players;
+	
+	public void oldReverse() {
+		Collections.reverse(players);
 	}
-
+	
+	public void reverse(Player player) {
+		List<Player> newOrder = new ArrayList<Player>();
+		int size = players.size();
+		int index = players.indexOf(player) - 1;
+//		System.out.println(player.getGameTag() + " >> " + index);
+		for(int i = index; i >= 0; i--) {
+			newOrder.add(players.remove(i));
+		}
+		int nextIndex = size - index;
+//		System.out.println("Next Index >> " + nextIndex);
+		for(int i = (players.size() - 1); i >= 0; i--) {
+			newOrder.add(players.remove(i));
+		}
+//		for(int i = 0; i < newOrder.size(); i++) {
+//			System.out.println(newOrder.get(i).getGameTag());
+//		}
+		players.addAll(newOrder);
+	}
+	
 	public Player getPlayer(String gameTag) {
-		for(Player p : players) {
-			if(p.getGameTag().equals(gameTag)) {
-				return p;
+		for(Player player : players) {
+			if(player.getGameTag().equals(gameTag)) {
+				return player;
 			}
 		}
 		return null;
+	}
+
+	public List<Player> getPlayers() {
+		return players;
 	}
 	
 	public Player getWinner() {

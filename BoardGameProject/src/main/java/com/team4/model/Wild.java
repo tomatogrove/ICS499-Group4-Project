@@ -8,7 +8,11 @@ public class Wild extends Card {
 
 	@Override
 	public String toString() {
-		return "Wild";
+		String result = "Wild";
+		if(super.getColor() != "") {
+			result = super.toString() + " Wild";
+		}
+		return result;
 	}
 
 }

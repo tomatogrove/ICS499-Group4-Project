@@ -46,29 +46,29 @@ public class Deck {
 			cards.add(new Numbered("Green", i));
 			cards.add(new Numbered("Yellow", i));
 		}
-//		//Create the skip, reverse, & draw 2 cards
-//		for(int i = 0; i < 2; i++) {
-//			cards.add(new Skip("Red"));
-//			cards.add(new Skip("Blue"));
-//			cards.add(new Skip("Green"));
-//			cards.add(new Skip("Yellow"));
-//			
-//			cards.add(new Reverse("Red"));
-//			cards.add(new Reverse("Blue"));
-//			cards.add(new Reverse("Green"));
-//			cards.add(new Reverse("Yellow"));
-//			
-//			cards.add(new Draw2("Red"));
-//			cards.add(new Draw2("Blue"));
-//			cards.add(new Draw2("Green"));
-//			cards.add(new Draw2("Yellow"));
-//		}
-//		//Create the wild & wild draw 4 cards
-//		for(int i = 0; i < 4; i++) {
-//			cards.add(new Wild());
-//			
-//			cards.add(new WildDraw4());
-//		}
+		//Create the skip, reverse, & draw 2 cards
+		for(int i = 0; i < 2; i++) {
+			cards.add(new Skip("Red"));
+			cards.add(new Skip("Blue"));
+			cards.add(new Skip("Green"));
+			cards.add(new Skip("Yellow"));
+			
+			cards.add(new Reverse("Red"));
+			cards.add(new Reverse("Blue"));
+			cards.add(new Reverse("Green"));
+			cards.add(new Reverse("Yellow"));
+			
+			cards.add(new Draw2("Red"));
+			cards.add(new Draw2("Blue"));
+			cards.add(new Draw2("Green"));
+			cards.add(new Draw2("Yellow"));
+		}
+		//Create the wild & wild draw 4 cards
+		for(int i = 0; i < 4; i++) {
+			cards.add(new Wild());
+			
+			cards.add(new WildDraw4());
+		}
 		shuffle();
 	}
 	
@@ -86,6 +86,22 @@ public class Deck {
 	
 	public Card drawCard() {
 		return cards.remove(0);
+	}
+	
+	public List<Card> draw2(){
+		List<Card> result = new ArrayList<Card>();
+		for(int i = 0; i < 2; i++) {
+			result.add(cards.remove(i));
+		}
+		return result;
+	}
+	
+	public List<Card> draw4(){
+		List<Card> result = new ArrayList<Card>();
+		for(int i = 0; i < 4; i++) {
+			result.add(cards.remove(i));
+		}
+		return result;
 	}
 	
 	public String toString() {

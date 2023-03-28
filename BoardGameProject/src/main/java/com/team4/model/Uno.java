@@ -34,27 +34,47 @@ public class Uno {
 		playedCard = deck.drawCard();
 	}
 	
-//	public boolean isAWildCard(int card, Player player) {
-//		//0 is a wild card, 1 isn't a wild card
-//		Card playingCard = player.myHand().playCard((card - 1));
-//		if(playingCard.getClass().toString() == "Wild" || playingCard.getClass().toString() == "WildDraw4") {
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
-	
-	public void play(int card, Player player) {
+	public void play(int card, Player player) throws InvalidCardException, SkipException, ReverseException, Draw2Exception, WildException, WildDraw4Exception {
 		Card playingCard = player.myHand().playCard((card - 1));
+		
 		if(playedCard.getColor().equals(playingCard.getColor())) {
 			playedCards.add(playedCard);
 			playedCard = playingCard;
+			if(playedCard.getClass().getSimpleName().equals("Skip")) {
+				throw new SkipException();
+			} else if(playedCard.getClass().getSimpleName().equals("Reverse")) {
+				playerList.reverse(player);
+				throw new ReverseException();
+			} else if(playedCard.getClass().getSimpleName().equals("Draw2")) {
+				throw new Draw2Exception();
+			} 
+		} else if(playedCard.getClass().getSimpleName().equals("Skip") && !playedCard.getColor().equals(playingCard.getColor())) {
+			playedCards.add(playedCard);
+			playedCard = playingCard;
+			throw new SkipException();
+		} else if(playedCard.getClass().getSimpleName().equals("Reverse") && !playedCard.getColor().equals(playingCard.getColor())) {
+			playedCards.add(playedCard);
+			playedCard = playingCard;
+			playerList.reverse(player);
+			throw new ReverseException();
+		} else if(playedCard.getClass().getSimpleName().equals("Draw2") && !playedCard.getColor().equals(playingCard.getColor())) {
+			playedCards.add(playedCard);
+			playedCard = playingCard;
+			throw new Draw2Exception();
+		} else if(playingCard.getClass().getSimpleName().equals("Wild")) {
+			playedCards.add(playedCard);
+			playedCard = playingCard;
+			throw new WildException();
+		} else if(playingCard.getClass().getSimpleName().equals("WildDraw4")) {
+			playedCards.add(playedCard);
+			playedCard = playingCard;
+			throw new WildDraw4Exception();
 		} else if(playedCard.getNum() == playingCard.getNum()){
 			playedCards.add(playedCard);
 			playedCard = playingCard;
 		} else {
 			player.myHand().returnCard(playingCard);
-			throw new IllegalArgumentException("Invalid Card, Try Again!\nPlayed Card: " + playedCard.toString());
+			throw new InvalidCardException();
 		}
 	}
 	
@@ -62,8 +82,14 @@ public class Uno {
 		for(int i = 0; i < player.myHand().size(); i++) {
 			if(playedCard.getColor().equals(player.myHand().getCard(i).getColor())) {
 				return true;
-			} else if(playedCard.getNum() == player.myHand().getCard(i).getNum()) {
-				return true;
+			} else {
+				if(playedCard.getClass().getSimpleName().equals("Numbered") && player.myHand().getCard(i).getClass().getSimpleName().equals("Numbered")) {
+					if(playedCard.getNum() == player.myHand().getCard(i).getNum()) {
+						return true;
+					}
+				} else if(playedCard.getClass().getSimpleName().equals(player.myHand().getCard(i).getClass().getSimpleName())) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -72,6 +98,10 @@ public class Uno {
 	public void playerDrawCard(int amountOfCards, Player player) {
 		if(amountOfCards == 1) {
 			player.myHand().drawCard(deck.drawCard());
+		} else if(amountOfCards == 2) {
+			player.myHand().drawCards(deck.draw2());
+		} else if(amountOfCards == 4) {
+			player.myHand().drawCards(deck.draw4());
 		}
 	}
 
@@ -81,6 +111,10 @@ public class Uno {
 
 	public PlayerList getPlayerList() {
 		return playerList;
+	}
+
+	public Deck getDeck() {
+		return deck;
 	}
 
 }
