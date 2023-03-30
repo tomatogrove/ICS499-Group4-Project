@@ -91,7 +91,7 @@ public class UserInterface {
 			do {
 				try {
 					if(uno.checkIfPlayerHasPlayableHand(players.get(n))){
-						int card = getNumber(players.get(n).myHand().toString() + players.get(n).getGameTag() + " enter the number corresponding to the card you would like to play >> ");
+						int card = getNumber(players.get(n).myHand().toString() + players.get(n).getGameTag() + ", enter the number corresponding to the card you would like to play >> ");
 						uno.play(card, players.get(n));
 						System.out.println("Played Card: " + uno.getPlayedCard().toString());
 					} else {
@@ -100,10 +100,68 @@ public class UserInterface {
 						System.out.println("Played Card: " + uno.getPlayedCard().toString());
 					}
 					n++;
-				} catch (IllegalArgumentException iae) {
-					System.out.println(iae.getMessage());
+				} catch (InvalidCardException ice) {
+					System.out.println(ice.getMessage());
+					System.out.println("Played Card: " + uno.getPlayedCard().toString());
+				} catch(SkipException se) {
+					System.out.println(players.get(n).getGameTag() + ", " + se.getMessage());
+					System.out.println("Played Card: " + uno.getPlayedCard().toString());
+					n++;
+				} catch(ReverseException re) {
+					System.out.println(re.getMessage());
+					System.out.println("Played Card: " + uno.getPlayedCard().toString());
+				} catch(Draw2Exception d2e) {
+					n++;
+					System.out.println(players.get(n).getGameTag() + ", " + d2e.getMessage());
+					uno.playerDrawCard(2, players.get(n));
+					System.out.println("Played Card: " + uno.getPlayedCard().toString());
+					n++;
+				} catch(WildException we) {
+					int wildColor = getNumber(players.get(n).getGameTag() + ", " + we.getMessage());
+					switch(wildColor) {
+						case 1: 
+							uno.getPlayedCard().setColor("Red");
+							break;
+						case 2:
+							uno.getPlayedCard().setColor("Blue");
+							break;
+						case 3:
+							uno.getPlayedCard().setColor("Green");
+							break;
+						case 4:
+							uno.getPlayedCard().setColor("Yellow");
+							break;
+					}
+					System.out.println("Played Card: " + uno.getPlayedCard().toString());
+					n++;
+				} catch(WildDraw4Exception wd4e) {
+					int wildColor = getNumber(players.get(n).getGameTag() + ", " + wd4e.getMessage());
+					switch(wildColor) {
+					case 1: 
+						uno.getPlayedCard().setColor("Red");
+						break;
+					case 2:
+						uno.getPlayedCard().setColor("Blue");
+						break;
+					case 3:
+						uno.getPlayedCard().setColor("Green");
+						break;
+					case 4:
+						uno.getPlayedCard().setColor("Yellow");
+						break;
+					}
+					n++;
+					System.out.println(players.get(n).getGameTag() + ", " + wd4e.getEndingMessage());
+					uno.playerDrawCard(4, players.get(n));
+					System.out.println("Played Card: " + uno.getPlayedCard().toString());
+					n++;
+				} finally {
+					if(n == players.size()) {
+						n = 0;
+					}
 				}
-			}while(n < players.size());
+			} while(uno.getPlayerList().noWinner());
+
 		}
 		
 		System.out.println("!!!Winner: " + uno.getPlayerList().getWinner().getGameTag() + "!!!");
@@ -124,12 +182,7 @@ public class UserInterface {
 		}
 	}
 
-	public static void main(String[] args) {
-//		List<String> gamerTag = new ArrayList<String>();
-//		gamerTag.add("jj");
-//		uno.startGame(1, gamerTag);
-//		Player jj = uno.getPlayerList().getPlayer("jj");
-//		System.out.println(jj.myHand().toString());
+	public static void main(String[] args) {	
 		UserInterface.instance().process();
 	}
 
