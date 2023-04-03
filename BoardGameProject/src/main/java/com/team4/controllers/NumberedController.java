@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Deck;
-import com.team4.repositories.DeckRepository;
-
+import com.team4.model.Numbered;
+import com.team4.repositories.NumberedRepository;
 
 @RestController
-@RequestMapping("/deck")
-public class DeckController {
-
+@RequestMapping("/numbered")
+public class NumberedController {
+	
 	@Autowired 
-	private DeckRepository deckRepo;
+	private NumberedRepository numberedRepo;
 	
 	@GetMapping("/all")
-	public List<Deck> list() {
-		return deckRepo.findAll();
+	public List<Numbered> list() {
+		return numberedRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Deck get(@PathVariable Long id) {
-		return deckRepo.getReferenceById(id);
+	public Numbered get(@PathVariable Long id) {
+		return numberedRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Deck create(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public Numbered create(@RequestBody final Numbered numbered) {
+		return numberedRepo.saveAndFlush(numbered);
 	}
 	
 	@PutMapping("/update")
-	public Deck update(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public Numbered update(@RequestBody final Numbered numbered) {
+		return numberedRepo.saveAndFlush(numbered);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		deckRepo.deleteById(id);
+		numberedRepo.deleteById(id);
 	}
+
 }

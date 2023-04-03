@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Deck;
-import com.team4.repositories.DeckRepository;
+import com.team4.model.ReverseException;
+import com.team4.repositories.ReverseExceptionRepository;
 
 
 @RestController
-@RequestMapping("/deck")
-public class DeckController {
+@RequestMapping("/reverseException")
+public class ReverseExceptionController {
 
 	@Autowired 
-	private DeckRepository deckRepo;
+	private ReverseExceptionRepository reverseExceptionRepo;
 	
 	@GetMapping("/all")
-	public List<Deck> list() {
-		return deckRepo.findAll();
+	public List<ReverseException> list() {
+		return reverseExceptionRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Deck get(@PathVariable Long id) {
-		return deckRepo.getReferenceById(id);
+	public ReverseException get(@PathVariable Long id) {
+		return reverseExceptionRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Deck create(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public ReverseException create(@RequestBody final ReverseException reverseException) {
+		return reverseExceptionRepo.saveAndFlush(reverseException);
 	}
 	
 	@PutMapping("/update")
-	public Deck update(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public ReverseException update(@RequestBody final ReverseException reverseException) {
+		return reverseExceptionRepo.saveAndFlush(reverseException);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		deckRepo.deleteById(id);
+		reverseExceptionRepo.deleteById(id);
 	}
 }

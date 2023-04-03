@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Deck;
-import com.team4.repositories.DeckRepository;
-
+import com.team4.model.Reverse;
+import com.team4.repositories.ReverseRepository;
 
 @RestController
-@RequestMapping("/deck")
-public class DeckController {
-
+@RequestMapping("/reverse")
+public class ReverseController {
+	
 	@Autowired 
-	private DeckRepository deckRepo;
+	private ReverseRepository reverseRepo;
 	
 	@GetMapping("/all")
-	public List<Deck> list() {
-		return deckRepo.findAll();
+	public List<Reverse> list() {
+		return reverseRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Deck get(@PathVariable Long id) {
-		return deckRepo.getReferenceById(id);
+	public Reverse get(@PathVariable Long id) {
+		return reverseRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Deck create(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public Reverse create(@RequestBody final Reverse reverse) {
+		return reverseRepo.saveAndFlush(reverse);
 	}
 	
 	@PutMapping("/update")
-	public Deck update(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public Reverse update(@RequestBody final Reverse reverse) {
+		return reverseRepo.saveAndFlush(reverse);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		deckRepo.deleteById(id);
+		reverseRepo.deleteById(id);
 	}
+
 }

@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Deck;
-import com.team4.repositories.DeckRepository;
-
+import com.team4.model.PlayerList;
+import com.team4.repositories.PlayerListRepository;
 
 @RestController
-@RequestMapping("/deck")
-public class DeckController {
-
+@RequestMapping("/playerList")
+public class PlayerListController {
+	
 	@Autowired 
-	private DeckRepository deckRepo;
+	private PlayerListRepository playerListRepo;
 	
 	@GetMapping("/all")
-	public List<Deck> list() {
-		return deckRepo.findAll();
+	public List<PlayerList> list() {
+		return playerListRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Deck get(@PathVariable Long id) {
-		return deckRepo.getReferenceById(id);
+	public PlayerList get(@PathVariable Long id) {
+		return playerListRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Deck create(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public PlayerList create(@RequestBody final PlayerList playerList) {
+		return playerListRepo.saveAndFlush(playerList);
 	}
 	
 	@PutMapping("/update")
-	public Deck update(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public PlayerList update(@RequestBody final PlayerList playerList) {
+		return playerListRepo.saveAndFlush(playerList);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		deckRepo.deleteById(id);
+		playerListRepo.deleteById(id);
 	}
+
 }

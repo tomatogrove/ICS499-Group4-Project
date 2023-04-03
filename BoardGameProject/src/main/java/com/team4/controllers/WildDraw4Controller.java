@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Deck;
-import com.team4.repositories.DeckRepository;
-
+import com.team4.model.WildDraw4;
+import com.team4.repositories.WildDraw4Repository;
 
 @RestController
-@RequestMapping("/deck")
-public class DeckController {
-
+@RequestMapping("/wildDraw4")
+public class WildDraw4Controller {
+	
 	@Autowired 
-	private DeckRepository deckRepo;
+	private WildDraw4Repository wildDraw4Repo;
 	
 	@GetMapping("/all")
-	public List<Deck> list() {
-		return deckRepo.findAll();
+	public List<WildDraw4> list() {
+		return wildDraw4Repo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Deck get(@PathVariable Long id) {
-		return deckRepo.getReferenceById(id);
+	public WildDraw4 get(@PathVariable Long id) {
+		return wildDraw4Repo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Deck create(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public WildDraw4 create(@RequestBody final WildDraw4 wildDraw4) {
+		return wildDraw4Repo.saveAndFlush(wildDraw4);
 	}
 	
 	@PutMapping("/update")
-	public Deck update(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public WildDraw4 update(@RequestBody final WildDraw4 wildDraw4) {
+		return wildDraw4Repo.saveAndFlush(wildDraw4);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		deckRepo.deleteById(id);
+		wildDraw4Repo.deleteById(id);
 	}
+
 }

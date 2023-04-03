@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Deck;
-import com.team4.repositories.DeckRepository;
+import com.team4.model.Draw2Exception;
+import com.team4.repositories.Draw2ExceptionRepository;
 
 
 @RestController
-@RequestMapping("/deck")
-public class DeckController {
+@RequestMapping("/draw2Exception")
+public class Draw2ExceptionController {
 
 	@Autowired 
-	private DeckRepository deckRepo;
+	private Draw2ExceptionRepository draw2ExceptionRepo;
 	
 	@GetMapping("/all")
-	public List<Deck> list() {
-		return deckRepo.findAll();
+	public List<Draw2Exception> list() {
+		return draw2ExceptionRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Deck get(@PathVariable Long id) {
-		return deckRepo.getReferenceById(id);
+	public Draw2Exception get(@PathVariable Long id) {
+		return draw2ExceptionRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Deck create(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public Draw2Exception create(@RequestBody final Draw2Exception draw2Exception) {
+		return draw2ExceptionRepo.saveAndFlush(draw2Exception);
 	}
 	
 	@PutMapping("/update")
-	public Deck update(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public Draw2Exception update(@RequestBody final Draw2Exception draw2Exception) {
+		return draw2ExceptionRepo.saveAndFlush(draw2Exception);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		deckRepo.deleteById(id);
+		draw2ExceptionRepo.deleteById(id);
 	}
 }

@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Deck;
-import com.team4.repositories.DeckRepository;
+import com.team4.model.WildDraw4Exception;
+import com.team4.repositories.WildDraw4ExceptionRepository;
 
 
 @RestController
-@RequestMapping("/deck")
-public class DeckController {
+@RequestMapping("/wildDraw4Exception")
+public class WildDraw4ExceptionController {
 
 	@Autowired 
-	private DeckRepository deckRepo;
+	private WildDraw4ExceptionRepository wildDraw4ExceptionRepo;
 	
 	@GetMapping("/all")
-	public List<Deck> list() {
-		return deckRepo.findAll();
+	public List<WildDraw4Exception> list() {
+		return wildDraw4ExceptionRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Deck get(@PathVariable Long id) {
-		return deckRepo.getReferenceById(id);
+	public WildDraw4Exception get(@PathVariable Long id) {
+		return wildDraw4ExceptionRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Deck create(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public WildDraw4Exception create(@RequestBody final WildDraw4Exception wildDraw4Exception) {
+		return wildDraw4ExceptionRepo.saveAndFlush(wildDraw4Exception);
 	}
 	
 	@PutMapping("/update")
-	public Deck update(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public WildDraw4Exception update(@RequestBody final WildDraw4Exception wildDraw4Exception) {
+		return wildDraw4ExceptionRepo.saveAndFlush(wildDraw4Exception);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		deckRepo.deleteById(id);
+		wildDraw4ExceptionRepo.deleteById(id);
 	}
 }

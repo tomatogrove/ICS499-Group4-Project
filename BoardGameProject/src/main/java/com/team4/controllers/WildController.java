@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Deck;
-import com.team4.repositories.DeckRepository;
-
+import com.team4.model.Wild;
+import com.team4.repositories.WildRepository;
 
 @RestController
-@RequestMapping("/deck")
-public class DeckController {
-
+@RequestMapping("/wild")
+public class WildController {
+	
 	@Autowired 
-	private DeckRepository deckRepo;
+	private WildRepository wildRepo;
 	
 	@GetMapping("/all")
-	public List<Deck> list() {
-		return deckRepo.findAll();
+	public List<Wild> list() {
+		return wildRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Deck get(@PathVariable Long id) {
-		return deckRepo.getReferenceById(id);
+	public Wild get(@PathVariable Long id) {
+		return wildRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Deck create(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public Wild create(@RequestBody final Wild wild) {
+		return wildRepo.saveAndFlush(wild);
 	}
 	
 	@PutMapping("/update")
-	public Deck update(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public Wild update(@RequestBody final Wild wild) {
+		return wildRepo.saveAndFlush(wild);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		deckRepo.deleteById(id);
+		wildRepo.deleteById(id);
 	}
+
 }

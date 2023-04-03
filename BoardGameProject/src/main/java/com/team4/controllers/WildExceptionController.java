@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Deck;
-import com.team4.repositories.DeckRepository;
+import com.team4.model.WildException;
+import com.team4.repositories.WildExceptionRepository;
 
 
 @RestController
-@RequestMapping("/deck")
-public class DeckController {
+@RequestMapping("/wildException")
+public class WildExceptionController {
 
 	@Autowired 
-	private DeckRepository deckRepo;
+	private WildExceptionRepository wildExceptionRepo;
 	
 	@GetMapping("/all")
-	public List<Deck> list() {
-		return deckRepo.findAll();
+	public List<WildException> list() {
+		return wildExceptionRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Deck get(@PathVariable Long id) {
-		return deckRepo.getReferenceById(id);
+	public WildException get(@PathVariable Long id) {
+		return wildExceptionRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Deck create(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public WildException create(@RequestBody final WildException wildException) {
+		return wildExceptionRepo.saveAndFlush(wildException);
 	}
 	
 	@PutMapping("/update")
-	public Deck update(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public WildException update(@RequestBody final WildException wildException) {
+		return wildExceptionRepo.saveAndFlush(wildException);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		deckRepo.deleteById(id);
+		wildExceptionRepo.deleteById(id);
 	}
 }

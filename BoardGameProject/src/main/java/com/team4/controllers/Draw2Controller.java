@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Deck;
-import com.team4.repositories.DeckRepository;
-
+import com.team4.model.Draw2;
+import com.team4.repositories.Draw2Repository;
 
 @RestController
-@RequestMapping("/deck")
-public class DeckController {
-
+@RequestMapping("/draw2")
+public class Draw2Controller {
+	
 	@Autowired 
-	private DeckRepository deckRepo;
+	private Draw2Repository draw2Repo;
 	
 	@GetMapping("/all")
-	public List<Deck> list() {
-		return deckRepo.findAll();
+	public List<Draw2> list() {
+		return draw2Repo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Deck get(@PathVariable Long id) {
-		return deckRepo.getReferenceById(id);
+	public Draw2 get(@PathVariable Long id) {
+		return draw2Repo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Deck create(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public Draw2 create(@RequestBody final Draw2 draw2) {
+		return draw2Repo.saveAndFlush(draw2);
 	}
 	
 	@PutMapping("/update")
-	public Deck update(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public Draw2 update(@RequestBody final Draw2 draw2) {
+		return draw2Repo.saveAndFlush(draw2);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		deckRepo.deleteById(id);
+		draw2Repo.deleteById(id);
 	}
+
 }

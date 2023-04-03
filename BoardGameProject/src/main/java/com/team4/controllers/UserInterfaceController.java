@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Deck;
-import com.team4.repositories.DeckRepository;
-
+import com.team4.model.UserInterface;
+import com.team4.repositories.UserInterfaceRepository;
 
 @RestController
-@RequestMapping("/deck")
-public class DeckController {
+@RequestMapping("/users")
+public class UserInterfaceController {
 
-	@Autowired 
-	private DeckRepository deckRepo;
+	@Autowired
+	private UserInterfaceRepository userInterfaceRepo;
+	
 	
 	@GetMapping("/all")
-	public List<Deck> list() {
-		return deckRepo.findAll();
+	public List<UserInterface> list() {
+		return userInterfaceRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Deck get(@PathVariable Long id) {
-		return deckRepo.getReferenceById(id);
+	public UserInterface get(@PathVariable Long id) {
+		return userInterfaceRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Deck create(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public UserInterface create(@RequestBody final UserInterface user) {
+		return userInterfaceRepo.saveAndFlush(user);
 	}
 	
 	@PutMapping("/update")
-	public Deck update(@RequestBody final Deck deck) {
-		return deckRepo.saveAndFlush(deck);
+	public UserInterface update(@RequestBody final UserInterface user) {
+		return userInterfaceRepo.saveAndFlush(user);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		deckRepo.deleteById(id);
+		userInterfaceRepo.deleteById(id);
 	}
 }
