@@ -1,20 +1,23 @@
 package com.team4.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
-@Table (name="reverseexception")
+@Table(name="reverseexception")
+@SuppressWarnings("serial")
 public class ReverseException extends Exception {
 	
-	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	private Long reverseexceptionID;
 	
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 	public ReverseException() {
 		super("The order has been reversed");
 	}
