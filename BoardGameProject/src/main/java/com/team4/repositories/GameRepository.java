@@ -3,9 +3,9 @@
  * 
  * import org.springframework.data.jpa.repository.JpaRepository;
  * 
- * import com.team4.model.WildDraw4;
+ * import com.team4.model.Game;
  * 
- * public interface WildDraw4Repository extends JpaRepository<WildDraw4, Long> {
+ * public interface GameRepository extends JpaRepository<Game, Long> {
  * 
  * }
  */

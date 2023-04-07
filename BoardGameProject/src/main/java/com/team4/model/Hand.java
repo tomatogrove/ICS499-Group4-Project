@@ -3,8 +3,21 @@ package com.team4.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Hand {
+	@Id
+	@GeneratedValue
+	private Long handID;
+
 	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<Card> hand;
 	
 	public Hand() {

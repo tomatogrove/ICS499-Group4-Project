@@ -2,8 +2,8 @@ package com.team4.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.team4.model.WildException;
+import com.team4.model.Wild;
 
-public interface WildExceptionRepository extends JpaRepository<WildException, Long>{
+public interface WildExceptionRepository extends JpaRepository<Wild, Long>{
 
 }

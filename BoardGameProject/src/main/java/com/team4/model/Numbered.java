@@ -1,5 +1,9 @@
 package com.team4.model;
 
+import jakarta.persistence.Entity;
+
+@Entity
+
 public class Numbered extends Card{
 	
 	public Numbered(String color, int num) {
