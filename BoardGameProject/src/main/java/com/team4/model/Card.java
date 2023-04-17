@@ -30,6 +30,7 @@ public abstract class Card {
 		this.color = color;
 	}
 
+
 	public int getNum() {
 		return num;
 	}

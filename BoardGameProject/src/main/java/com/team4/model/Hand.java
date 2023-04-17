@@ -45,7 +45,9 @@ public class Hand {
 	public Card getCard(int index) {
 		return hand.get(index);
 	}
-	
+	public List<Card> getCards() {
+	    return hand;
+	}
 	public int size() {
 		return hand.size();
 	}
