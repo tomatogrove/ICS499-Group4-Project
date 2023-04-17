@@ -3,11 +3,12 @@ package com.team4.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -15,27 +16,26 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Uno")
+@CrossOrigin(origins = "http://localhost:4200")
 public class Uno {
 	
-	@Id
-    private Long id;
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	private List<Deck> decks;
-
+  
+	 @Id
+	  @GeneratedValue private Long id;
 	public static Uno uno;
-	//private PlayerList playerList;
-	//Check the RelationShip
+	
+	@OneToOne
+	private PlayerList playerList;
+	
 	@OneToOne
 	private Deck deck;
-	//Check the Relationship
-	@OneToOne
+	 @OneToOne
 	private Card playedCard;
-	//Check the RelationShip
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	 @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<Card> playedCards = new ArrayList<Card>();
 	
-	private Uno() {
-		//playerList = PlayerList.instance();
+	public Uno() {
+		playerList = PlayerList.instance();
 		deck = Deck.instance();
 	}
 	
@@ -49,12 +49,11 @@ public class Uno {
 	
 	public void startGame(int numOfPlayers, List<String> gamerTag) {
 		for(int i = 0; i < numOfPlayers; i++) {
-			//playerList.createPlayer(gamerTag.get(i));
+			playerList.createPlayer(gamerTag.get(i));
 		}
-		/*
-		 * for(Player player : playerList.getPlayers()) {
-		 * //player.getHand().drawCards(deck.draw7()); }
-		 */
+		for(Player player : playerList.getPlayers()) {
+			player.getHand().drawCards(deck.draw7());
+		}
 		playedCard = deck.drawCard();
 	}
 	
@@ -96,35 +95,39 @@ public class Uno {
 	 */
 	
 	public boolean checkIfPlayerHasPlayableHand(Player player) {
-		/*
-		 * for(int i = 0; i < player.getHand().size(); i++) {
-		 * if(playedCard.getColor().equals(player.getHand().getCard(i).getColor())) {
-		 * return true; } else {
-		 * if(playedCard.getClass().getSimpleName().equals("Numbered") &&
-		 * player.getHand().getCard(i).getClass().getSimpleName().equals("Numbered")) {
-		 * if(playedCard.getNum() == player.getHand().getCard(i).getNum()) { return
-		 * true; } } else
-		 * if(playedCard.getClass().getSimpleName().equals(player.getHand().getCard(i).
-		 * getClass().getSimpleName())) { return true; } } }
-		 */
+		for(int i = 0; i < player.getHand().size(); i++) {
+			if(playedCard.getColor().equals(player.getHand().getCard(i).getColor())) {
+				return true;
+			} else {
+				if(playedCard.getClass().getSimpleName().equals("Numbered") && player.getHand().getCard(i).getClass().getSimpleName().equals("Numbered")) {
+					if(playedCard.getNum() == player.getHand().getCard(i).getNum()) {
+						return true;
+					}
+				} else if(playedCard.getClass().getSimpleName().equals(player.getHand().getCard(i).getClass().getSimpleName())) {
+					return true;
+				}
+			}
+		}
 		return false;
 	}
 	
 	public void playerDrawCard(int amountOfCards, Player player) {
-		/*
-		 * if(amountOfCards == 1) { player.getHand().drawCard(deck.drawCard()); } else
-		 * if(amountOfCards == 2) { player.getHand().drawCards(deck.draw2()); } else
-		 * if(amountOfCards == 4) { player.getHand().drawCards(deck.draw4()); }
-		 */
+		if(amountOfCards == 1) {
+			player.getHand().drawCard(deck.drawCard());
+		} else if(amountOfCards == 2) {
+			player.getHand().drawCards(deck.draw2());
+		} else if(amountOfCards == 4) {
+			player.getHand().drawCards(deck.draw4());
+		}
 	}
 
 	public Card getPlayedCard() {
 		return playedCard;
 	}
 
-	/*
-	 * public PlayerList getPlayerList() { return playerList; }
-	 */
+	public PlayerList getPlayerList() {
+		return playerList;
+	}
 
 	public Deck getDeck() {
 		return deck;
