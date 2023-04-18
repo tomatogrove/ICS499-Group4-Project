@@ -4,11 +4,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+@Entity
 public class PlayerList {
 	
+    @Id
+    private Long id;
+    
+    @OneToMany(mappedBy = "playerList", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Player> players = new ArrayList<Player>();
+    
+    @OneToOne
+    private Player winner;
+	
 	public static PlayerList playerList;
-	private List<Player> players = new ArrayList<Player>();
-	private Player winner;
+	
+	@OneToOne
+	private Uno uno;
 
 	private PlayerList() {
 
@@ -28,7 +45,7 @@ public class PlayerList {
 	
 	public boolean noWinner() {
 		for(Player player : players) {
-			if(player.myHand().size() == 0) {
+			if(player.getHand().size() == 0) {
 				winner = player;
 				return false;
 			} 
@@ -48,7 +65,6 @@ public class PlayerList {
 		for(int i = index; i >= 0; i--) {
 			newOrder.add(players.remove(i));
 		}
-		@SuppressWarnings("unused")
 		int nextIndex = size - index;
 //		System.out.println("Next Index >> " + nextIndex);
 		for(int i = (players.size() - 1); i >= 0; i--) {

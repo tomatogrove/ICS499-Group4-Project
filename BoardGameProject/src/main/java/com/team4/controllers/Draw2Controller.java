@@ -3,7 +3,6 @@ package com.team4.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,40 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Card;
-import com.team4.repositories.CardRepository;
+import com.team4.model.Draw2;
+import com.team4.repositories.Draw2Repository;
 
 @RestController
-@RequestMapping("/card")
-@CrossOrigin(origins = "http://localhost:4200")
-public class CardController {
+@RequestMapping("/draw2")
+public class Draw2Controller {
 	
 	@Autowired 
-	private CardRepository cardRepo;
+	private Draw2Repository draw2Repo;
 	
 	@GetMapping("/all")
-	public List<Card> list() {
-		return cardRepo.findAll();
+	public List<Draw2> list() {
+		return draw2Repo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Card get(@PathVariable Long id) {
-		return cardRepo.getReferenceById(id);
+	public Draw2 get(@PathVariable Long id) {
+		return draw2Repo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Card create(@RequestBody final Card card) {
-		return cardRepo.saveAndFlush(card);
+	public Draw2 create(@RequestBody final Draw2 draw2) {
+		return draw2Repo.saveAndFlush(draw2);
 	}
 	
 	@PutMapping("/update")
-	public Card update(@RequestBody final Card card) {
-		return cardRepo.saveAndFlush(card);
+	public Draw2 update(@RequestBody final Draw2 draw2) {
+		return draw2Repo.saveAndFlush(draw2);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		cardRepo.deleteById(id);
+		draw2Repo.deleteById(id);
 	}
 
 }

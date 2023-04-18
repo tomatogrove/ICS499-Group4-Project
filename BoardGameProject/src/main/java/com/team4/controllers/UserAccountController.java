@@ -13,40 +13,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Card;
-import com.team4.repositories.CardRepository;
+
+import com.team4.model.UserAccount;
+import com.team4.repositories.UserAccountRepository;
 
 @RestController
-@RequestMapping("/card")
+@RequestMapping("/useraccount")
 @CrossOrigin(origins = "http://localhost:4200")
-public class CardController {
+public class UserAccountController {
 	
 	@Autowired 
-	private CardRepository cardRepo;
+	private UserAccountRepository userAccRepo;
 	
 	@GetMapping("/all")
-	public List<Card> list() {
-		return cardRepo.findAll();
+	public List<UserAccount> list() {
+		return userAccRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Card get(@PathVariable Long id) {
-		return cardRepo.getReferenceById(id);
+	public UserAccount get(@PathVariable Long id) {
+		return userAccRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Card create(@RequestBody final Card card) {
-		return cardRepo.saveAndFlush(card);
+	public UserAccount create(@RequestBody final UserAccount userAcc) {
+		return userAccRepo.saveAndFlush(userAcc);
 	}
 	
 	@PutMapping("/update")
-	public Card update(@RequestBody final Card card) {
-		return cardRepo.saveAndFlush(card);
+	public UserAccount update(@RequestBody final UserAccount userAcc) {
+		return userAccRepo.saveAndFlush(userAcc);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		cardRepo.deleteById(id);
+		userAccRepo.deleteById(id);
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.team4.model;
 
-@SuppressWarnings("serial")
+import jakarta.persistence.Entity;
+
+
 public class WildDraw4Exception extends Exception {
 	String endingMessage = "we have drawn 4 cards for you and you have been skipped";
 	
@@ -11,6 +13,7 @@ public class WildDraw4Exception extends Exception {
 	public WildDraw4Exception(String message) {
 		super(message);
 	}
+
 	public String getEndingMessage() {
 		return endingMessage;
 	}

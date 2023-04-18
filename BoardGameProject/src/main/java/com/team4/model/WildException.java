@@ -1,6 +1,5 @@
 package com.team4.model;
 
-@SuppressWarnings("serial")
 public class WildException extends Exception {
 
 	public WildException() {

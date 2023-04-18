@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.classes.Hand;
+import com.team4.model.Hand;
 import com.team4.repositories.HandRepository;
 
 @RestController
@@ -41,8 +41,8 @@ public class HandController {
 		return handRepo.saveAndFlush(hand);
 	}
 
-@DeleteMapping("/delete/{id}")
-public void delete(@PathVariable Long id) {
-	handRepo.deleteById(id);
-}
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable Long id) {
+		handRepo.deleteById(id);
+	}
 }

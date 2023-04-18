@@ -3,7 +3,6 @@ package com.team4.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,40 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Card;
-import com.team4.repositories.CardRepository;
+import com.team4.model.PlayerList;
+import com.team4.repositories.PlayerListRepository;
 
 @RestController
-@RequestMapping("/card")
-@CrossOrigin(origins = "http://localhost:4200")
-public class CardController {
+@RequestMapping("/playerList")
+public class PlayerListController {
 	
 	@Autowired 
-	private CardRepository cardRepo;
+	private PlayerListRepository playerListRepo;
 	
 	@GetMapping("/all")
-	public List<Card> list() {
-		return cardRepo.findAll();
+	public List<PlayerList> list() {
+		return playerListRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Card get(@PathVariable Long id) {
-		return cardRepo.getReferenceById(id);
+	public PlayerList get(@PathVariable Long id) {
+		return playerListRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Card create(@RequestBody final Card card) {
-		return cardRepo.saveAndFlush(card);
+	public PlayerList create(@RequestBody final PlayerList playerList) {
+		return playerListRepo.saveAndFlush(playerList);
 	}
 	
 	@PutMapping("/update")
-	public Card update(@RequestBody final Card card) {
-		return cardRepo.saveAndFlush(card);
+	public PlayerList update(@RequestBody final PlayerList playerList) {
+		return playerListRepo.saveAndFlush(playerList);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		cardRepo.deleteById(id);
+		playerListRepo.deleteById(id);
 	}
 
 }
