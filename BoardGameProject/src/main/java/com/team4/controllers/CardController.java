@@ -20,30 +20,30 @@ import com.team4.repositories.CardRepository;
 @RequestMapping("/card")
 @CrossOrigin(origins = "http://localhost:4200")
 public class CardController {
-	
-	@Autowired 
+
+	@Autowired
 	private CardRepository cardRepo;
-	
+
 	@GetMapping("/all")
 	public List<Card> list() {
 		return cardRepo.findAll();
 	}
-	
+
 	@GetMapping("/{id}")
 	public Card get(@PathVariable Long id) {
 		return cardRepo.getReferenceById(id);
 	}
-	
+
 	@PostMapping("/add")
 	public Card create(@RequestBody final Card card) {
 		return cardRepo.saveAndFlush(card);
 	}
-	
+
 	@PutMapping("/update")
 	public Card update(@RequestBody final Card card) {
 		return cardRepo.saveAndFlush(card);
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
 		cardRepo.deleteById(id);

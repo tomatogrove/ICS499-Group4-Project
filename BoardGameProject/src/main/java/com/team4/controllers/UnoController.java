@@ -28,7 +28,7 @@ import com.team4.services.UnoGameService;
 
 @RestController
 @RequestMapping("/uno")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class UnoController {
 
 	private UnoGameService unoGameService = new UnoGameService();

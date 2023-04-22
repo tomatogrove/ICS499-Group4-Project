@@ -95,7 +95,7 @@ public class Deck {
 	public List<Card> draw7(){
 		List<Card> result = new ArrayList<Card>();
 		for(int i = 0; i < 7; i++) {
-			result.add(cards.remove(i));
+			result.add(cards.remove(i)); //error
 		}
 		return result;
 	}

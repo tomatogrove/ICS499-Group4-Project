@@ -48,6 +48,8 @@ public class Uno {
 	}
 	
 	public void startGame(int numOfPlayers, List<String> gamerTag) {
+		System.out.print(numOfPlayers);
+		System.out.println(gamerTag.toString());
 		for(int i = 0; i < numOfPlayers; i++) {
 			playerList.createPlayer(gamerTag.get(i));
 		}
