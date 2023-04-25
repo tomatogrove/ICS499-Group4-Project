@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 public class Reverse extends Card {
 
 	public Reverse(String color) {
-		super(color);
+		super(color, "reverse");
 	}
 
 	@Override

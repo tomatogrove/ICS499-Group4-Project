@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 public class Draw2 extends Card {
 
 	public Draw2(String color) {
-		super(color);
+		super(color, "draw2");
 	}
 
 	@Override

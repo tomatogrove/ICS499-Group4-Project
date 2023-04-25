@@ -1,6 +1,12 @@
 package com.team4.controllers;
 
 import java.util.List;
+
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
+
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +31,10 @@ import com.team4.model.Uno;
 import com.team4.repositories.DeckRepository;
 import com.team4.repositories.UnoRepository;
 import com.team4.services.UnoGameService;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.BasicPolymorphicTypeValidator;
+import com.fasterxml.jackson.databind.jsontype.PolymorphicTypeValidator;
 
 @RestController
 @RequestMapping("/uno")
@@ -32,6 +42,9 @@ import com.team4.services.UnoGameService;
 public class UnoController {
 
 	private UnoGameService unoGameService = new UnoGameService();
+
+	ObjectMapper objectMapper = new ObjectMapper();
+	
 
 	public UnoController(UnoGameService unoGameService) {
 		this.unoGameService = unoGameService;
@@ -88,10 +101,57 @@ public class UnoController {
 		List<Player> players = unoGameService.getPlayers();
 		return ResponseEntity.ok(players);
 	}
+
 	@GetMapping("/played-card")
-	  public ResponseEntity<Card> getPlayedCard() {
-	    Card playedCard = unoGameService.getPlayedCard();
-	    return ResponseEntity.ok(playedCard);
-	  }
+	public ResponseEntity<Card> getPlayedCard() {
+		Card playedCard = unoGameService.getPlayedCard();
+		return ResponseEntity.ok(playedCard);
+	}
+
+	@GetMapping("/playableCard")
+	public boolean currentPlayerHasPlayableCard() {
+		return unoGameService.currentPlayerHasPlayableCard();
+	}
+
+	/*
+	 * @PostMapping("/player/{playerId}/play-card") public ResponseEntity<Card>
+	 * playCard(@PathVariable Long playerId, @RequestBody Map<String, Integer>
+	 * payload) { int cardIndex = payload.get("cardIndex"); Card playedCard =
+	 * unoGameService.playCard(playerId, cardIndex); return
+	 * ResponseEntity.ok(playedCard); }
+	 */
+	@GetMapping("/nextPlayer")
+	public int getNextPlayer() {
+		return unoGameService.getNextPlayerIndex();
+	}
+
+	@PostMapping("/playCard")
+    public ResponseEntity<?> playCard(@RequestBody Map<String, Object> payload) {
+        int cardIndex = (Integer) payload.get("cardIndex");
+        String selectedColor = (String) payload.get("selectedColor");
+
+        objectMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        Player player = objectMapper.convertValue(payload.get("player"), Player.class);
+        
+        try {
+            unoGameService.playCard(cardIndex, player, selectedColor);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/drawCard")
+    public ResponseEntity<?> drawCard(@RequestBody Player player) {
+        try {
+            unoGameService.drawCard(player);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    
+    
 
 }

@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 public class Wild extends Card {
     
     public Wild() {
-        super("");
+        super("", "wild");
     }
 
     @Override
