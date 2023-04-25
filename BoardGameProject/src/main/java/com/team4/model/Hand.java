@@ -20,6 +20,8 @@ public class Hand {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<Card> hand;
 	
+	
+	
 	public Hand() {
 		hand = new ArrayList<Card>();
 	}

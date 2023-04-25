@@ -1,5 +1,8 @@
 package com.team4.model;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +13,13 @@ import jakarta.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)  
+@JsonTypeInfo(use = JsonTypeInfo.Id.DEDUCTION)
+@JsonSubTypes({
+    @JsonSubTypes.Type(Numbered.class)}
+  
+)
 public abstract class Card {
+	
 	
 	@Id
 	@GeneratedValue
@@ -19,15 +28,16 @@ public abstract class Card {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Deck deck;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Hand hand;
+	
 	
 	private String color;
 	protected int num;
+	private String type;
 
 	public Card() {}
-	public Card(String color) {
+	public Card(String color, String type) {
 		this.color = color;
+		this.type = type;
 	}
 
 
@@ -46,5 +56,8 @@ public abstract class Card {
 	public String toString() {
 		return color;
 	}
-
+	public String getType() {
+	    return type;
+	  }
+	
 }

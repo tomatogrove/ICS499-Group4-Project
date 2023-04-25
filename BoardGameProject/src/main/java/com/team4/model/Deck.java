@@ -87,6 +87,10 @@ public class Deck {
 		}
 		shuffle();
 	}
+	public void resetDeck() {
+	    cards.clear();
+	    createDeck(); // This should be the method that creates and shuffles the initial deck of cards.
+	}
 	
 	public void shuffle() {
 		Collections.shuffle(cards);

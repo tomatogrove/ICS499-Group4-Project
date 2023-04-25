@@ -100,5 +100,9 @@ public class PlayerList {
 		}
 		return result;
 	}
+	public void clearPlayers() {
+	    players.clear();
+	}
+
 
 }
