@@ -124,6 +124,14 @@ public class Deck {
 		return result;
 	}
 	
+//	public String getCards() {
+//		return card;
+//	}
+//	
+//	public void setCards(String card) {
+//		this.card = card;
+//	}
+	
 	public String toString() {
 		String result = "";
 		for(int i = 0; i < cards.size(); i++) {
