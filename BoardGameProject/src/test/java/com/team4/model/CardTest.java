@@ -31,11 +31,6 @@ class CardTest {
 		assertEquals("red", card.getColor());
 	}
 
-//	@Test
-//	void testToString() {
-//		assertEquals("red", card.toString());
-//	}
-
 	@Test
 	void testGetType() {
 		assertEquals("numbered", card.getType());

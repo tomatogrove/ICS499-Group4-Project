@@ -124,13 +124,13 @@ public class Deck {
 		return result;
 	}
 	
-//	public String getCards() {
-//		return card;
-//	}
-//	
-//	public void setCards(String card) {
-//		this.card = card;
-//	}
+	public List<Card> getCards() {
+	    return cards;
+	}
+	
+	public int size() {
+		return deck.size();
+	}
 	
 	public String toString() {
 		String result = "";
