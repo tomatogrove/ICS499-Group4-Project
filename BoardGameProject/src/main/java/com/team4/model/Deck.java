@@ -124,6 +124,14 @@ public class Deck {
 		return result;
 	}
 	
+	public List<Card> getCards() {
+	    return cards;
+	}
+	
+	public int size() {
+		return deck.size();
+	}
+	
 	public String toString() {
 		String result = "";
 		for(int i = 0; i < cards.size(); i++) {
