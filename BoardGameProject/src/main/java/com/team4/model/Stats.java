@@ -16,6 +16,12 @@ public class Stats {
     private String gameTag;
 
     private int gamesWon;
+    
+    public Stats() {}
+    public Stats(int gamesWon, String gameTag) {
+    	this.gamesWon= gamesWon;
+    	this.gameTag = gameTag;
+    }
 
     // getters and setters
     public Long getId() {

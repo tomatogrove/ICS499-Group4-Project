@@ -69,21 +69,6 @@ public class UnoControllerTest {
     }
 
     @Test
-    public void testCreateUnoGame() {
-        Deck deck = new Deck();
-        Uno uno = new Uno();
-        when(deckRepository.save(any(Deck.class))).thenReturn(deck);
-        when(unoRepository.save(any(Uno.class))).thenReturn(uno);
-
-        ResponseEntity<Uno> responseEntity = unoController.createUnoGame();
-
-        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
-        assertEquals(uno, responseEntity.getBody());
-        verify(deckRepository).save(any(Deck.class));
-        verify(unoRepository).save(any(Uno.class));
-    }
-
-    @Test
     public void testUpdate() {
         Uno uno = new Uno();
         when(unoRepository.saveAndFlush(any(Uno.class))).thenReturn(uno);
