@@ -50,13 +50,11 @@ public class UnoController {
 		this.unoGameService = unoGameService;
 	}
 
-	@Autowired
-	private UnoRepository unoRepo;
+	@Autowired UnoRepository unoRepo;
 
 	private Uno uno = Uno.instance();;
 
-	@Autowired
-	private DeckRepository deckRepo;
+	@Autowired DeckRepository deckRepo;
 
 	@GetMapping("/all")
 	public List<Uno> list() {

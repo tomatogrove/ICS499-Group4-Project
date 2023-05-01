@@ -1,129 +1,127 @@
-//package com.team4.controllers;
-//
-//import static org.mockito.ArgumentMatchers.any;
-//import static org.mockito.Mockito.doNothing;
-//import static org.mockito.Mockito.when;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-//
-//import java.nio.charset.Charset;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.junit.runner.RunWith;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.MockitoAnnotations;
-//import org.mockito.junit.MockitoJUnitRunner;
-//import org.springframework.http.MediaType;
-//import org.springframework.test.web.servlet.MockMvc;
-//import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-//
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.fasterxml.jackson.databind.ObjectWriter;
-//import com.team4.controllers.UnoController;
-//import com.team4.model.Uno;
-//import com.team4.services.UnoService;
-//
-//@RunWith(MockitoJUnitRunner.class)
-//class UnoControllerTest {
-//
-//	private MockMvc mockMvc;
-//
-// 	private ObjectMapper objectMapper = new ObjectMapper();
-// 	private ObjectWriter objectWriter = objectMapper.writer();
-// 	public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
-//
-// 	@Mock
-// 	private UnoService unoService;
-// 	
-//
-// 	@InjectMocks
-// 	private UnoController unoController;
-//
-// 	@BeforeEach
-// 	public void setUp() {
-// 		MockitoAnnotations.openMocks(this);
-// 		this.mockMvc = MockMvcBuilders.standaloneSetup(this.unoController).build();
-// 	}
-//
-//
-// 	@Test
-// 	public void testCreateValidCard() throws Exception {
-// 		Uno testUno = new Uno();
-//
-// 		// whenever a post call is make for a Card, return the mock card
-// 		when(unoService.createUno(any(Uno.class))).thenReturn(testUno);
-//
-// 		Uno uno = new Uno();
-//
-// 		mockMvc.perform(post("/uno/add").contentType(APPLICATION_JSON_UTF8).content(objectWriter.writeValueAsString(uno)))
-// 			.andExpect(status().isOk())
-// 			.andReturn();
-// 	}
-// 	
-// 	@Test
-// 	public void testCreateInvalidCard() throws Exception {
-// 		// test makes a post call with no body
-// 		mockMvc.perform(post("/uno/add")).andExpect(status().isBadRequest());
-// 	}
-// 	
-// 	@Test
-// 	public void testGetAllUno() throws Exception {
-// 		Uno uno = new Uno();
-//
-// 		Uno uno2 = new Uno();
-//
-// 		List<Uno> testUnos = new ArrayList<>();
-// 		testUnos.add(uno);
-// 		testUnos.add(uno2);
-//
-// 		when(unoService.getAllUno()).thenReturn(testUnos);
-//
-//
-// 		mockMvc.perform(get("/uno/all"))
-// 			.andExpect(status().isOk())
-// 			.andExpect(content().json(objectWriter.writeValueAsString(testUnos)));
-//
-// 	}
-//
-// 	@Test
-// 	public void testGetUnoByID() throws Exception {
-// 		Long unoID = 1L;
-// 		Uno savedUno = new Uno();
-//
-// 		when(unoService.getUnoById(unoID)).thenReturn(savedUno);
-//
-// 		mockMvc.perform(get("/uno/{id}", unoID))
-// 		.andExpect(status().isOk())
-// 		.andExpect(content().json(objectWriter.writeValueAsString(savedUno)));
-// 	}
-//
-// 	@Test
-// 	public void testUpdateUno() throws Exception {
-// 		Uno updatedUno = new Uno();
-//
-// 		when(unoService.updateUno(any(Uno.class))).thenReturn(updatedUno);
-//
-// 		mockMvc.perform(put("/uno/update").contentType(APPLICATION_JSON_UTF8).content(objectWriter.writeValueAsString(updatedUno)))
-// 			.andExpect(status().isOk())
-// 			.andExpect(content().json(objectWriter.writeValueAsString(updatedUno)));
-// 	}
-//
-// 	@Test
-// 	public void testDeleteUnoById() throws Exception {
-// 		Long unoID = 1L;
-//
-// 		doNothing().when(unoService).deleteUnoById(unoID);
-//
-// 		mockMvc.perform(delete("/uno/delete/{id}", unoID)).andExpect(status().isOk());
-// 	}
-//
-//
-//}
+package com.team4.controllers;
+
+import com.team4.model.Player;
+import com.team4.model.Uno;
+import com.team4.model.Deck;
+import com.team4.model.StartGameRequest;
+import com.team4.repositories.DeckRepository;
+import com.team4.repositories.UnoRepository;
+import com.team4.services.UnoGameService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
+public class UnoControllerTest {
+
+    private UnoController unoController;
+
+    @Mock
+    private UnoGameService unoGameService;
+
+    @Mock
+    private UnoRepository unoRepository;
+
+    @Mock
+    private DeckRepository deckRepository;
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        unoController = new UnoController(unoGameService);
+        unoController.unoRepo = unoRepository;
+        unoController.deckRepo = deckRepository;
+    }
+
+    @Test
+    public void testList() {
+        List<Uno> unoList = new ArrayList<>();
+        Uno uno = new Uno();
+        unoList.add(uno);
+        when(unoRepository.findAll()).thenReturn(unoList);
+
+        List<Uno> result = unoController.list();
+
+        assertEquals(1, result.size());
+        assertEquals(uno, result.get(0));
+        verify(unoRepository).findAll();
+    }
+
+    @Test
+    public void testGet() {
+        Uno uno = new Uno();
+        when(unoRepository.getReferenceById(1L)).thenReturn(uno);
+
+        Uno result = unoController.get(1L);
+
+        assertEquals(uno, result);
+        verify(unoRepository).getReferenceById(1L);
+    }
+
+    @Test
+    public void testCreateUnoGame() {
+        Deck deck = new Deck();
+        Uno uno = new Uno();
+        when(deckRepository.save(any(Deck.class))).thenReturn(deck);
+        when(unoRepository.save(any(Uno.class))).thenReturn(uno);
+
+        ResponseEntity<Uno> responseEntity = unoController.createUnoGame();
+
+        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
+        assertEquals(uno, responseEntity.getBody());
+        verify(deckRepository).save(any(Deck.class));
+        verify(unoRepository).save(any(Uno.class));
+    }
+
+    @Test
+    public void testUpdate() {
+        Uno uno = new Uno();
+        when(unoRepository.saveAndFlush(any(Uno.class))).thenReturn(uno);
+
+        Uno result = unoController.update(uno);
+
+        assertEquals(uno, result);
+        verify(unoRepository).saveAndFlush(any(Uno.class));
+    }
+
+    @Test
+    public void testDelete() {
+        unoController.delete(1L);
+
+        verify(unoRepository).deleteById(1L);
+    }
+
+    @Test
+    public void testStartGame() {
+        StartGameRequest request = new StartGameRequest();
+        request.setNumOfPlayers(2);
+        List<String> gamerTags = new ArrayList<>();
+        gamerTags.add("Player1");
+        gamerTags.add("Player2");
+        request.setGamerTags(gamerTags);
+
+        ResponseEntity<Void> responseEntity = unoController.startGame(request);
+
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        verify(unoGameService).startGame(2, gamerTags);
+    }
+
+    @Test
+    public void testGetPlayers() {
+        List<Player> players = new ArrayList<>();
+        Player player1 = new Player();
+        Player player2 = new Player();
+        players.add(player1);
+        players.add(player2);
+    }
+}
