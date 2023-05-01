@@ -39,13 +39,6 @@ public class UnoGameService {
         return uno.checkIfPlayerHasPlayableHand(currentPlayer);
     }
 
-
-	/*
-	 * public Card playCard(Long playerId, int cardIndex) { Player player =
-	 * getPlayerById(playerId); uno.play(cardIndex, player); return
-	 * uno.getPlayedCard(); }
-	 */
-
     private Player getPlayerById(Long playerId) {
         List<Player> players = uno.getPlayerList().getPlayers();
         for (Player player : players) {
@@ -55,11 +48,10 @@ public class UnoGameService {
         }
         return null;
     }
- // Add these variables at the class level, after any existing variables
+
     private int currentPlayerIndex = 0;
     private int turnDirection = 1;
 
-    // Add these methods at the end of the class, before the closing brace
     public int getNextPlayerIndex() {
         int numOfPlayers = uno.getPlayerList().getPlayers().size();
         currentPlayerIndex = (currentPlayerIndex + turnDirection + numOfPlayers) % numOfPlayers;
@@ -67,6 +59,7 @@ public class UnoGameService {
     }
 
     public void reverseTurnOrder() {
+    	turnDirection = 1;
         turnDirection = -turnDirection;
     }
 
@@ -80,7 +73,6 @@ public class UnoGameService {
             uno.play(cardIndex, player, selectedColor);
         } catch (InvalidCardException | SkipException | ReverseException | Draw2Exception | WildException
                 | WildDraw4Exception e) {
-            // Handle these exceptions as needed for your game logic
         }
     }
 
