@@ -55,7 +55,11 @@ public class Uno {
 		for (Player player : playerList.getPlayers()) {
 			player.getHand().drawCards(deck.draw7());
 		}
-		playedCard = deck.drawCard();
+
+		do {
+		    playedCard = deck.drawCard();
+		} while (playedCard.getType().equals("skip") || playedCard.getType().equals("reverse") || playedCard.getType().equals("wild"));
+
 	}
 	public void resetGame() {
 	    playerList.clearPlayers();

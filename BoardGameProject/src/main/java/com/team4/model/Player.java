@@ -21,6 +21,8 @@ public class Player {
 	@ManyToOne
 	private PlayerList playerList;
 	
+	
+	
 	public Player() {}
 	
 	public Player(String gameTag) {
